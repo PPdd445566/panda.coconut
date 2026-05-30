@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ຮ້ານຂາຍນ້ຳໝາກພ້າວນ້ຳຫອມ - Simple POS</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+</head>
+<body>
+
+    <div style="width: 100%; background: #4E7A52; color: white; padding: 12px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 4px 10px rgba(0,0,0,0.1);">
+        <marquee behavior="scroll" direction="left" scrollamount="6" onmouseover="this.stop();" onmouseout="this.start();" style="font-size: 18px; font-weight: 700; display: block; font-family: 'Noto Sans Lao', sans-serif;">
+            ຮ້ານຂາຍນ້ຳໝາກພ້າວນ້ຳຫອມຂອງພວກເຮົາຍິນດີຕ້ອນຮັບທຸກໆທ່ານ ຊ້ວງນີ້ມີໂປຣໂມຊັ້ນ ສ່ວນຫຼຸດ 5% Welcome to our Aromatic Coconut Juice Shop! Enjoy a special 5% discount during our promotion period.
+        </marquee>
+    </div>
+
+    <header>
+        <div class="navbar-container">
+            <div class="logo-box">
+                <img src="logo.png" alt="Logo" class="store-logo">
+                <div class="logo-text">
+                    <span class="brand-title">ສະຖາບັນ ເຕັກໂນໂລຊີ ສຸດສະກະ </span>
+                    <span class="brand-subtitle">Soutsaka institute of technology</span>
+                </div>
+            </div>
+
+      <div class="right-menu">
+                <nav class="nav-links">
+                   <div class="nav-links">
+                    <a href="#" onclick="showSection('main')">ໜ້າຫຼັກ</a>
+                        <a href="#" onclick="showSection('portfolio')">ຜົນງານ</a>
+                     <a href="#" onclick="showSection('contact')">ຕິດຕໍ່</a>
+                </div>
+                </nav>
+                <button id="dark-mode-toggle" onclick="toggleDarkMode()">🌙 Dark Mode</button>
+            </div>
+        </div>
+        <h1 id="store-title">ຮ້ານຂາຍນ້ຳໝາກພ້າວນ້ຳຫອມ Aromatic Coconut Water Shop</h1>
+    </header>
+
+    <div class="container" id="main-store-section">
+        <main class="products-grid" id="products-container"></main>
+
+        <section class="cart-section">
+            <div class="cart-layout">
+                
+                <div class="cart-left">
+                    <h2>ລາຍການສິນຄ້າ</h2>
+                    <div id="cart-items"></div>
+
+                    <div class="cart-summary">
+                        <p>ຈຳນວນທັງໝົດ: <span id="total-count">0</span> ອັນ</p>
+                        <div class="coupon-area">
+                            <input type="text" id="coupon-code-input" placeholder="ໃສ່ລະຫັດສ່ວນຫຼຸດ">
+                            <button type="button" onclick="applyDiscount(event)">ໃຊ້ສ່ວນຫຼຸດ</button>
+                        </div>
+                        <p id="discount-msg" style="font-size: 0.9rem;"></p>
+                        
+                        <div class="price-details" style="margin-top: 15px; border-top: 1px dashed #cbd5e1; padding-top: 10px;">
+                            <p style="margin: 5px 0; color: #64748b;">ຍອດລວມລາຄາເຕັມ: <span id="subtotal-price">0</span> ກີບ</p>
+                            <p style="margin: 5px 0; color: #ef4444; font-weight: bold;">ส่วนຫຼຸດທີ່ໄດ້ຮັບ: -<span id="discount-amount">0</span> ກີບ</p>
+                            <h3 style="margin: 10px 0 0 0; color: #1e293b;">ຍອດລວມທັງໝົດ: <span id="total-price">0</span> ກີບ</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cart-right">
+                    <h2>ຂໍ້ມູນລູກຄ້າ</h2>
+                    <form id="checkout-form" onsubmit="handleCheckout(event)">
+                        <div class="form-group">
+                            <label for="customer-name">ຊື່ລູກຄ້າ:</label>
+                            <input type="text" id="customer-name" required placeholder="ກະລຸນາປ້ອນຊື່">
+                        </div>
+                        <div class="form-group">
+                            <label for="customer-tel">ເບີໂທລະສັບ:</label>
+                            <input type="tel" id="customer-tel" required placeholder="ກະລຸນາປ້ອນເບີໂທ">
+                        </div>
+                        <button type="submit" class="btn-checkout">ຢືນຢັນການຊື້ ແລະ ອອກໃບບິນ</button>
+                    </form>
+                </div>
+
+            </div>
+        </section>
+    </div>
+
+ <section id="portfolio-section" class="extra-section features-section">
+    <div class="features-header">
+        <h2>🏆 ຜົນງານການຂາຍຂອງພວກເຮົາ</h2>
+        <p>ຄວາມພາກພູມໃຈ ແລະ ຄວາມສຳເລັດໃນການມອບຄວາມສົດຊື່ນຈາກນ້ຳໝາກພ້າວນ້ຳຫອມແທ້ 100% ໃຫ້ແກ່ລູກຄ້າ</p>
+    </div>
+
+    <div class="products-grid">
+        <div class="product-card feature-card sales-card">
+            <div class="feature-icon">📈</div>
+            <h3>ຍອດຂາຍທະລຸ 10,000 ແກ້ວ <span>Top Sales & 5-Star Reviews</span></h3>
+            <p class="feature-desc">ປະສົບຄວາມສຳເລັດອັນຍິ່ງໃຫຍ່ກັບຍອດຂາຍທະລຸ 10,000 ແກ້ວພາຍໃນໄລຍະເວລາອັນສັ້ນພ້ອມກາລັນຕີຄວາມແຊບແລະຄວາມສະອາດດ້ວຍຄະແນນຣີວິວລະດັບ5ດາວເຕັມຈາກລູກຄ້າຈິງຫຼາຍກວ່າ 5,000 ຄົນ.</p>
+        </div>
+
+        <div class="product-card feature-card sales-card">
+            <div class="feature-icon">🥥</div>
+            <h3>ຄັດສັນໝາກພ້າວ > 5,000 ໜ່ວຍ <span>Premium Quality Selection</span></h3>
+            <p class="feature-desc">ພວກເຮົາຄັດສັນແລະເສີບໝາກພ້າວນ້ຳຫອມອໍແກນິກເກຣດພີມ່ຽມຈາກສວນທີ່ໄດ້ມາດຕະຖານໄປແລ້ວຫຼາຍກວ່າ 5,000 ໜ່ວຍເພື່ອໃຫ້ລູກຄ້າໄດ້ດື່ມນ້ຳໝາກພ້າວທີ່ຫອມ,ຫວານ,ສົດໃໝ່ແລະດີຕໍ່ສຸຂະພາບທຸກມື້.</p>
+        </div>
+
+        <div class="product-card feature-card sales-card">
+            <div class="feature-icon">🎪</div>
+            <h3>ບໍລິການອອກງານ Event & Catering <span>Catering Success</span></h3>
+            <p class="feature-desc">ໄດ້ຮັບຄວາມໄວ້ວາງໃຈໃຫ້ເປັນຜູ້ສະໜອງເຄື່ອງດື່ມນ້ຳໝາກພ້າວສົດໃຫ້ແກ່ງານລ້ຽງສັງສັນ,ງານດອງແລະງານອິເວັ້ນໃຫຍ່ໆໃນນະຄອນຫຼວງວຽງຈັນພ້ອມທັງໄດ້ຮັບຄຳຊົມເຊີຍຢ່າງລົ້ນເຫຼືອໃນດ້ານການບໍລິການ.</p>
+        </div>
+    </div>
+</section>
+    <div id="contact-section" class="extra-section" style="display: none; padding: 40px; text-align: center; max-width: 1200px; margin: 20px auto; background: white; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.05);">
+        <h2>📞 ຕິດຕໍ່ພວກເຮົາ</h2>
+        <div class="contact-info-list" style="text-align: left; max-width: 600px; margin: 20px auto; padding: 20px; background: #f8fafc; border-radius: 12px; border: 1px solid #e2e8f0;">
+            <p style="margin: 10px 0; font-size: 1.05rem;"><strong>📍 ສະຖານທີ່ຮ້ານຕັ້ງຢູ່:</strong> ບ້ານດົງໂພສີ ເມຶອງຫາດຊາຍຟອງ นະຄອນຫຼວງວຽງຈັນ</p>
+            <p style="margin: 10px 0; font-size: 1.05rem;"><strong>🕒 ເວລalaເຮັດການ:</strong> ວັນຈັນ - ວັນເສົາ (8:00 ໂມງ - 22:00 ໂມງ)</p>
+            <p style="margin: 10px 0; font-size: 1.05rem;"><strong>📞 ເບີໂທສາຍດ່ວນ:</strong> 020 57777979</p>
+            <p style="margin: 10px 0; font-size: 1.05rem;"><strong>📧 Email:</strong> <a href="mailto:sittidethsct72@gmail.com" style="color: #2563eb; text-decoration: none; font-weight: bold;">sittidethsct72@gmail.com</a></p>
+        </div>
+        
+        <div class="social-media-container" style="margin-top: 30px;">
+            <p style="font-weight: bold; margin-bottom: 15px; color: #475569;">💬 ຫາກມີຂໍ້ສົງໄສ ຫຼື ຕ້ອງການສັ່ງຊື້ສິນຄ້າ ສາມາດກົດແຊັດຫາພວກເຮົາໄດ້ທັນທີ:</p>
+            <div class="social-links">
+                <a href="https://wa.me/8562057777979?text=ສະບາຍດີ%20້ອຍສົນใจສອບຖາມຂໍ້ມູນກ່ຽວກັບນ້ຳໝາກພ້າວ" target="_blank" class="social-icon whatsapp"><i class="fab fa-whatsapp"></i> WhatsApp ແຊັດເລີຍ</a>
+                <a href="https://www.facebook.com/sitthideth.sct?locale=th_TH" target="_blank" class="social-icon facebook"><i class="fab fa-facebook-f"></i> Facebook</a>
+                <a href="https://www.instagram.com/deth_std/" target="_blank" class="social-icon instagram"><i class="fab fa-instagram"></i> Instagram</a>
+                <a href="https://www.tiktok.com/@sittideth777?lang=th-TH" target="_blank" class="social-icon tiktok"><i class="fab fa-tiktok"></i> TikTok</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

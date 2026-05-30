@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="lo">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ໃບບິນຮັບເງິນ - Receipt</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            background-color: #d0edb9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px 15px;
+            margin: 0;
+        }
+
+        .receipt-body {
+            background-color: #ffffff;
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 30px;
+            border: none;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+            position: relative;
+        }
+
+        .success-icon-container {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .success-icon {
+            width: 46px;
+            height: 46px;
+            background-color: #4caf50;
+            color: white;
+            border-radius: 50%;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+
+        .receipt-body h2 {
+            color: #5c59e9;
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-top: 5px;
+            margin-bottom: 4px;
+        }
+
+        .info-vertical {
+            margin-top: 15px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px dashed #d1d5db;
+        }
+
+        .info-vertical p {
+            margin: 0 0 6px 0;
+            font-size: 0.92rem;
+            line-height: 1.4;
+            color: #4b5563;
+        }
+
+        .info-vertical p strong {
+            color: #1f2937;
+        }
+
+        .receipt-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.92rem;
+        }
+        .receipt-table th {
+            border-bottom: 2px solid #e5e7eb;
+            color: #374151;
+            padding: 10px 5px;
+            font-weight: 700;
+        }
+        .receipt-table td {
+            padding: 10px 5px;
+            border-bottom: 1px dashed #e5e7eb;
+            color: #4b5563;
+        }
+
+        #receipt-summary {
+            text-align: right;
+            margin: 15px 0;
+            padding-bottom: 15px;
+            border-bottom: 1px dashed #d1d5db;
+        }
+
+        #receipt-summary p {
+            margin: 5px 0;
+            font-size: 0.95rem;
+        }
+
+        #receipt-summary h3 {
+            color: #2563eb;
+            font-size: 1.5rem;
+            font-weight: bold;
+            margin-top: 8px;
+            margin-bottom: 0;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin: 20px 0 5px 0;
+            padding: 15px; 
+            border: 1px dashed #5c59e9;
+            border-radius: 12px;
+            background-color: #fafafa;
+        }
+
+        .qr-container img {
+            width: 100% !important;        
+            max-width: 180px !important;   
+            height: auto !important;       
+            object-fit: contain;
+            display: block;
+            margin: 8px auto;             
+            border-radius: 6px;            
+            box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        }
+
+        .qr-text {
+            font-size: 0.95rem;
+            color: #5c59e9;
+            font-weight: bold;
+            margin: 4px 0 0 0;
+        }
+
+        .btn-group {
+            display: flex;
+            flex-direction: row;
+            gap: 12px;
+            margin-top: 20px;
+        }
+
+        .btn-action {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 0.95rem;
+            font-weight: bold;
+            cursor: pointer;
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            gap: 6px;
+            transition: background 0.2s;
+            text-decoration: none;
+            white-space: nowrap;
+        }
+
+        .btn-purple { background-color: #5c59e9; color: white; }
+        .btn-purple:hover { background-color: #4a47d1; }
+
+        .btn-green { background-color: #4caf50; color: white; }
+        .btn-green:hover { background-color: #3d8b40; }
+
+        .btn-gray { background-color: #f0f2f5; color: #4b5563; }
+        .btn-gray:hover { background-color: #e4e7eb; }
+
+        @media print {
+            body { 
+                background: white; 
+                padding: 0; 
+                margin: 0;
+                display: block;
+            }
+            .receipt-body { 
+                box-shadow: none; 
+                padding: 10mm; 
+                max-width: 100%;
+                border-radius: 0;
+            }
+            .btn-group { 
+                display: none !important; 
+            }
+            .success-icon-container {
+                display: none !important;
+            }
+            .receipt-body h2 {
+                color: #000000 !important;
+                font-size: 1.6rem;
+            }
+            #receipt-summary h3 {
+                color: #000000 !important;
+            }
+            .qr-container {
+                border: 1px dashed #000000 !important;
+                background-color: transparent !important;
+                page-break-inside: avoid;
+            }
+            .qr-text {
+                color: #000000 !important;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .btn-group {
+                flex-direction: column;
+            }
+            .receipt-body {
+                padding: 20px 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="receipt-body">
+        <div class="success-icon-container">
+            <div class="success-icon">✓</div>
+        </div>
+
+        <div style="text-align: center; margin-bottom: 10px;">
+            <h2>ໃບບິນຮັບເງິນ</h2>
+            <p style="color: #666; font-size: 0.9rem; margin: 4px 0 0 0;">ຮ້ານຂາຍນ້ຳໝາກພ້າວນ້ຳຫອມ Aromatic Coconut Water Shop</p>
+        </div>
+
+        <div id="receipt-info" class="info-vertical"></div>
+
+        <table class="receipt-table">
+            <thead>
+                <tr>
+                    <th style="text-align: left;">ລາຍການ</th>
+                    <th style="text-align: center;">ຈຳນວນ</th>
+                    <th style="text-align: right;">ລວມ (ກີບ)</th>
+                </tr>
+            </thead>
+            <tbody id="receipt-items"></tbody>
+        </table>
+
+        <div id="receipt-summary"></div>
+            
+        <div class="qr-container" id="qr-section">
+            <p style="font-size: 0.85rem; color: #555; margin: 0;">🔍 ສະແກນ QR Code ເພື່ອຊຳລະ微</p>
+            <img id="payment-qr" src="myqr.png" alt="Payment QR Code">
+            <p class="qr-text">ຍອດເງິນທີ່ຕ້ອງໂอน: <span id="qr-amount">0</span> ກີບ</p>
+        </div>
+
+        <div class="btn-group">
+            <button class="btn-action btn-purple" onclick="window.print()">
+                🖨 ພິມໃບບິນ
+            </button>
+            <button class="btn-action btn-green" onclick="window.print()">
+                📥 ບັນທຶກ PDF
+            </button>
+            <a href="index.html" class="btn-action btn-gray">
+                ← ໜ້າຫຼັກ
+            </a>
+        </div>
+    </div>
+
+    <script>
+        const order = JSON.parse(localStorage.getItem('currentOrder'));
+
+        if (order) {
+            document.getElementById('receipt-info').innerHTML = `
+                <p><strong>ວັນທີ:</strong> ${order.date}</p>
+                <p><strong>ຊື່ລູກຄ້າ:</strong> ${order.customerName}</p>
+                <p><strong>ເບີໂທ:</strong> ${order.customerTel}</p>
+            `;
+
+            const itemsContainer = document.getElementById('receipt-items');
+            let subtotal = 0; 
+
+            order.items.forEach(item => {
+                const itemTotal = item.price * item.quantity;
+                subtotal += itemTotal; 
+                
+                itemsContainer.innerHTML += `
+                    <tr>
+                        <td style="text-align: left;">${item.name}</td>
+                        <td style="text-align: center;">${item.quantity}</td>
+                        <td style="text-align: right;">${itemTotal.toLocaleString()}</td>
+                    </tr>
+                `;
+            });
+
+            const discountPercent = order.discount || 0;
+            const discountAmount = (subtotal * discountPercent) / 100;
+            const finalTotal = order.total; 
+
+           
+            document.getElementById('receipt-summary').innerHTML = `
+                <p style="color: #64748b;">ຍອດລວມລາຄາເຕັມ: <span style="font-weight: bold; color: #334155;">${subtotal.toLocaleString()}</span> ກີບ</p>
+                <p style="color: #ef4444; font-weight: 500;">ສ່ວນຫຼຸດທີ່ໄດ້ຮັບ (${discountPercent}%): <span>-${discountAmount.toLocaleString()}</span> ກີບ</p>
+                <h3>ຍອດລວມທັງໝົດ: ${finalTotal.toLocaleString()} ກີບ</h3>
+            `;
+
+            document.getElementById('qr-amount').innerText = finalTotal.toLocaleString();
+            document.getElementById('payment-qr').src = "qr.png.jpeg";
+
+        } else {
+            document.body.innerHTML = "<div class='receipt-body' style='text-align:center;'><h3>ບໍ່ພົບຂໍ້ມູນໃບບິນ</h3></div>";
+        }
+    </script>
+</body>
+</html>
